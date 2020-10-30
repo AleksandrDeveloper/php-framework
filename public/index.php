@@ -19,9 +19,11 @@
     $query = $_SERVER['QUERY_STRING'];
 
     // url path , object;
-    Route::add('^$',['controller'=>'Main','action'=>'index']);
-    Route::add('^pages/?(?P<action>[a-z-]+)?$',['controller'=>'Post',]);
-    Route::add('^(?P<controller>[a-z-]+)/(?P<action>[a-z-]+)?$');
+    Route::add('^$',['controller'=>'Main','action'=>'index']); 
+
+    Route::add('^page/(?P<action>[a-z-]+)/(?P<alias>[a-z-]+)$',['controller'=>'Page']); 
+    Route::add('^page/(?P<alias>[a-z-]+)$',['controller'=>'Page','action'=>'view']); 
+    Route::add('^(?P<controller>[a-z-]+)/(?P<action>[a-z-]+)?$'); 
 
     Route::dispatch($query);
 

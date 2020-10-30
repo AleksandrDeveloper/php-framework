@@ -36,12 +36,15 @@
                     self::$route = $route;
                     return true;
                 }
-            }
+            } 
             return false;
         }
 
         public static function dispatch($url)
         {
+            $url = self::removeQueryString($url);
+            var_dump($url);
+            
             if(self::matchRoute($url)){  
                 $controller = 'app\controller\\' . self::upperCameCase(self::$route['controller']);
 
@@ -72,6 +75,18 @@
         protected static function lowerCameCase($str)
         {
             return lcfirst(self::upperCameCase($str));
+        }
+
+        protected static function removeQueryString($url)
+        {
+            if($url){
+                $params = explode('&',$url,2);
+                if(false === strpos($params[0],'=')){
+                    return rtrim($params[0],'/');
+                }else{
+                    return '';
+                }
+            }
         }
     }
 ?>
