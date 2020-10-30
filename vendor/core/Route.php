@@ -32,6 +32,7 @@
                     if(!isset($route['action'])){
                         $route['action'] = 'index';
                     }
+                    $route['controller'] = self::upperCameCase($route['controller']);
                     self::$route = $route;
                     return true;
                 }
@@ -42,10 +43,10 @@
         public static function dispatch($url)
         {
             if(self::matchRoute($url)){  
-                $controller = self::upperCameCase(self::$route['controller']);
+                $controller = 'app\controller\\' . self::upperCameCase(self::$route['controller']);
 
                 if(class_exists($controller)){
-                    $control = new $controller;
+                    $control = new $controller(self::$route);
                     $action = self::lowerCameCase(self::$route['action']) . 'Action';
 
                     if(method_exists($control,$action)){ 

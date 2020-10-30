@@ -7,11 +7,7 @@
     define('ROOT',dirname(__DIR__));
     define('APP',dirname(__DIR__) . '/app');
 
-    //require '../vendor/core/Route.php';
     require '../vendor/libs/functions.php';
-    // require '../app/controller/Main.php';
-    // require '../app/controller/Posts.php';
-    // require '../app/controller/PostNews.php';
 
     spl_autoload_register(function($class){
         $file = ROOT . '/' . str_replace('\\','/', $class) . '.php';

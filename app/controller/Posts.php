@@ -1,18 +1,16 @@
 <?php 
-    class Posts
+
+    namespace app\controller;
+    use vendor\core\base\Controller;
+
+class Posts extends Controller
     {
-        public function __construct()
-        {
-            echo 'Posts __construct <br>';
-        }
-        public static function indexAction(){
-            echo 'Posts indexAction <br>';
+
+        public function indexAction(){
+            debug($this->route); 
         }
         public static function testAction(){
             echo 'Posts testAction <br>';
-        }
-        public static function testPageAction(){
-            echo 'Posts testPageAction <br>';
         }
         public static function before(){
             echo 'Posts before';

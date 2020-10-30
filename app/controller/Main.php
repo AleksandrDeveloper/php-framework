@@ -1,7 +1,8 @@
 <?php 
     namespace app\controller;
+    use vendor\core\base\Controller;
 
-    class Main
+    class Main extends Controller
     {
         public function __construct()
         {
