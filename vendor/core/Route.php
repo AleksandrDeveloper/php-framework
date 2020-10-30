@@ -1,14 +1,10 @@
 <?php 
+    namespace vendor\core;
 
     class Route
     {
         protected static $routes = [];
         protected static $route;
-        
-        public function __construct()
-        {
-            echo 'Hello';
-        }
 
         public static function add($regexp,$route = [])
         {
@@ -45,17 +41,36 @@
 
         public static function dispatch($url)
         {
-            if(self::matchRoute($url)){
-                $controller = self::$route['controller'];
+            if(self::matchRoute($url)){  
+                $controller = self::upperCameCase(self::$route['controller']);
+
                 if(class_exists($controller)){
-                    echo 'ok';
-                }else{
-                    echo "Not found controller <br>$controller";
-                }
+                    $control = new $controller;
+                    $action = self::lowerCameCase(self::$route['action']) . 'Action';
+
+                    if(method_exists($control,$action)){ 
+                        $control->$action();
+                    }else{ 
+                        echo '<br> Action not found';
+                    }
+                }else{ echo "Not found controller <br>$controller"; }
+
             }else{
                 http_response_code(404);
                 include '404.html';
             }
+        }
+
+        protected static function upperCameCase($str)
+        {
+            $str = str_replace('-',' ',$str);
+            $str = ucwords($str);
+            $str = str_replace(' ','',$str);
+            return $str;
+        }
+        protected static function lowerCameCase($str)
+        {
+            return lcfirst(self::upperCameCase($str));
         }
     }
 ?>
